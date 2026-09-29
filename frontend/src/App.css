@@ -373,3 +373,22 @@ tbody tr:hover {
     flex-direction: column;
   }
 }
+.cancel-button {
+  width: auto;
+  padding: 8px 12px;
+
+  background-color: #dc2626;
+  color: white;
+
+  border: none;
+  border-radius: 5px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.cancel-button:hover {
+  background-color: #b91c1c;
+}
