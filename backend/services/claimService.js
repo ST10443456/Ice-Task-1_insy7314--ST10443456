@@ -18,6 +18,19 @@ const createClaim = async (claimData) => {
   return await claim.save();
 };
 
+const getClaimsByStudentNumber = async (studentNumber) => {
+  const twelveMonthsAgo = new Date();
+  twelveMonthsAgo.setFullYear(twelveMonthsAgo.getFullYear() - 1);
+
+  return await StudentClaim.find({
+    studentNumber: studentNumber,
+    dateSubmitted: {
+      $gte: twelveMonthsAgo,
+    },
+  }).sort({ dateSubmitted: -1 });
+};
+
 module.exports = {
   createClaim,
+  getClaimsByStudentNumber,
 };

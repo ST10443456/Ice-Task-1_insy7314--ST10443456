@@ -56,7 +56,37 @@ const createClaim = async (req, res) => {
     });
   }
 };
+const getClaimsByStudentNumber = async (req, res) => {
+  try {
+    const { studentNumber } = req.params;
+
+    if (!studentNumber || !studentNumber.trim()) {
+      return res.status(400).json({
+        message: "Student number is required.",
+      });
+    }
+
+    if (studentNumber.trim().length > 20) {
+      return res.status(400).json({
+        message: "Student number must not exceed 20 characters.",
+      });
+    }
+
+    const claims = await claimService.getClaimsByStudentNumber(
+      studentNumber.trim()
+    );
+
+    return res.status(200).json(claims);
+  } catch (error) {
+    console.error("Error retrieving claims:", error);
+
+    return res.status(500).json({
+      message: "An unexpected error occurred while retrieving claims.",
+    });
+  }
+};
 
 module.exports = {
   createClaim,
+  getClaimsByStudentNumber,
 };
