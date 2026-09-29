@@ -1,0 +1,6 @@
+$kind: http-request
+name: http://localhost:5000/api/claims/6abc0e9cc4d5162217addcbf/cancel
+description: ""
+url: http://localhost:5000/api/claims/6abc0e9cc4d5162217addcbf/cancel
+method: PATCH
+order: 1790710293067

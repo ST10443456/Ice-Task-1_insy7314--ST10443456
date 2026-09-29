@@ -29,8 +29,25 @@ const getClaimsByStudentNumber = async (studentNumber) => {
     },
   }).sort({ dateSubmitted: -1 });
 };
+const cancelClaim = async (claimId) => {
+  const claim = await StudentClaim.findById(claimId);
+
+  if (!claim) {
+    return { error: "NOT_FOUND" };
+  }
+
+  if (claim.status !== "Pending") {
+    return { error: "NOT_PENDING" };
+  }
+
+  claim.status = "Cancelled";
+  await claim.save();
+
+  return { claim };
+};
 
 module.exports = {
   createClaim,
   getClaimsByStudentNumber,
+  cancelClaim,
 };

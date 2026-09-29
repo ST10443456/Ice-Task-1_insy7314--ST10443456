@@ -13,5 +13,8 @@ router.get(
   "/student/:studentNumber",
   claimController.getClaimsByStudentNumber
 );
-
+router.patch(
+  "/:claimId/cancel",
+  claimController.cancelClaim
+);
 module.exports = router;

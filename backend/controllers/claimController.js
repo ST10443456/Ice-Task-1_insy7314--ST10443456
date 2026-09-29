@@ -85,8 +85,39 @@ const getClaimsByStudentNumber = async (req, res) => {
     });
   }
 };
+const cancelClaim = async (req, res) => {
+  try {
+    const { claimId } = req.params;
+
+    const result = await claimService.cancelClaim(claimId);
+
+    if (result.error === "NOT_FOUND") {
+      return res.status(404).json({
+        message: "Claim not found.",
+      });
+    }
+
+    if (result.error === "NOT_PENDING") {
+      return res.status(409).json({
+        message: "Only Pending claims can be cancelled.",
+      });
+    }
+
+    return res.status(200).json({
+      message: "Claim cancelled successfully.",
+      claim: result.claim,
+    });
+  } catch (error) {
+    console.error("Error cancelling claim:", error);
+
+    return res.status(500).json({
+      message: "An unexpected error occurred while cancelling the claim.",
+    });
+  }
+};
 
 module.exports = {
   createClaim,
   getClaimsByStudentNumber,
+  cancelClaim,
 };
