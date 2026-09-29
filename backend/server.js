@@ -3,17 +3,17 @@ const cors = require("cors");
 require("dotenv").config();
 
 const connectDB = require("./config/db");
+const claimRoutes = require("./routes/claimRoutes");
 
 const app = express();
 
-// Connect to MongoDB
 connectDB();
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Test route
+app.use("/api/claims", claimRoutes);
+
 app.get("/", (req, res) => {
   res.json({ message: "Student Bursary Claims API is running" });
 });
